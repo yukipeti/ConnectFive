@@ -116,7 +116,8 @@ void BoardOutput(void)
 //入力処理--------------------------------------------------------
 void Game(void)
 {
-    int x=0,y=0;
+    string x,y;
+    int X,Y;
 
     switch(PlayerNumber)
     {
@@ -131,19 +132,26 @@ void Game(void)
         {
             cout << "置く場所を決めてください(x y) ";
             cin >> x >> y;
-            if (x == 0 || y == 0 || x > BoardSize || y > BoardSize) cout << "不正な入力です" << endl;
-            else if (x >= 0 && x <= BoardSize && y >= 0 && y <= BoardSize) break;
+            try
+            {
+                X = stoi(x);
+                Y = stoi(y);
+            }
+            catch(const invalid_argument& e){}
+
+            if (X == 0 || Y == 0 || X > BoardSize || Y > BoardSize) cout << "不正な入力です" << endl;
+            else if (X >= 0 && X <= BoardSize && Y >= 0 && Y <= BoardSize) break;
             else cout << "その場所にはおけません" << endl;
         }
-        x--; y--;
+        X--; Y--;
 
-        if(PlayBoard[x][y] == 0)
+        if(PlayBoard[X][Y] == 0)
         {
-            PlayBoard[x][y]=PlayerNumber;
+            PlayBoard[X][Y]=PlayerNumber;
             break;
         } else cout << "その場所にはおけません" << endl;
     }
-    BoardScan(x, y);
+    BoardScan(X, Y);
 }
 //盤面の調査(五つならんだかどうか)--------------------------------------------------------
 void BoardScan(int x, int y)
