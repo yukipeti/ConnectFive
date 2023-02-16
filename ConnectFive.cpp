@@ -25,15 +25,24 @@ int main()
     cin >> YesOrNo;
     Standby(YesOrNo); cout << endl;
 
-    int i;
+    int i,BS;
+    string BoardSizeSub;
 
     while(1)
     {
         cout << "盤面のサイズを入力してください。(6<n<21) n*n" << endl << "n=";
-        cin >> BoardSize;
-        if (BoardSize < 7) cout << "値が小さすぎます" << endl;
+        cin >> BoardSizeSub;
+        try
+        {
+            BoardSize=stoi(BoardSizeSub);
+        }
+        catch(const invalid_argument& e)
+        {
+            cout << "数値を入力してください" << endl;
+        }
+        if (BoardSize < 7 && BoardSize!=0) cout << "値が小さすぎます" << endl;
         else if (BoardSize > 20) cout << "値が大きすぎます" << endl;
-        else break;
+        else if(BoardSize!=0) break;
     }
     cout << endl;
 
