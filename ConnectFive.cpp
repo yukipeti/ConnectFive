@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void Standby(char x);                                           //開始前準備
+void Standby(string x);                                           //開始前準備
 void BoardOutput(void);                                        //盤面の出力
 void Game(void);                                                //入力処理
 void BoardScan(int x, int y);                                   //盤面の調査
@@ -25,7 +25,7 @@ int main()
     cin >> YesOrNo;
     Standby(YesOrNo); cout << endl;
 
-    int i,BS;
+    int i;
     string BoardSizeSub;
 
     while(1)
@@ -63,18 +63,17 @@ int main()
     return 0;
 }
 //開始前準備-------------------------------------------------
-void Standby(char x)
+void Standby(string x)
 {
     cout << endl;
-    if (x=='n')
+    if (x=="n")
     {
         cout << "そう....またね.... ;^;" << endl;
         exit(0);
     }
-    else if(x!='y')
+    else if(x!="y")
     {
-        cout << "不正な入力がされたのでプログラムを終了します" << endl;
-        exit(0);
+        cout << "[y]か[n]を入力してください" << endl;
     }
 
     cout << "~~五目並べRule~~" << endl << "縦横斜め五個自分の駒を揃えたら勝ち!!!!!!" << endl;
@@ -140,7 +139,7 @@ void Game(void)
         while(1)
         {
             cout << "置く場所を決めてください(x y) ";
-            cin >> x >> y;
+            cin >> x >> y; //xの後に　入れないと処理止まるからどうにかしろ
             try
             {
                 X = stoi(x);
