@@ -24,25 +24,6 @@ int main()
     Standby();
 
     int i;
-    string BoardSizeSub;
-
-    while(1)
-    {
-        cout << "盤面のサイズを入力してください。(6<n<21) n*n" << endl << "n=";
-        cin >> BoardSizeSub;
-        try
-        {
-            BoardSize=stoi(BoardSizeSub);
-        }
-        catch(const invalid_argument& e)
-        {
-            cout << "数値を入力してください" << endl;
-        }
-        if (BoardSize < 7 && BoardSize!=0) cout << "値が小さすぎます" << endl;
-        else if (BoardSize > 20) cout << "値が大きすぎます" << endl;
-        else if(BoardSize!=0) break;
-    }
-    cout << endl;
 
     PlayBoard=vector<vector<int>>(BoardSize, vector<int>(BoardSize, 0));
 
@@ -63,7 +44,9 @@ int main()
 //開始前準備-------------------------------------------------
 void Standby(void)
 {
-    cout << "五目並べを開始しますか？ [y/n]" << endl;
+    string BoardSizeSub;
+
+    cout << "五目並べを開始しますか？ [y/n]:";
     while(1)
     {
         cin >> YesOrNo;
@@ -79,6 +62,7 @@ void Standby(void)
     }
 
     cout << "~~五目並べRule~~" << endl << "縦横斜め五個自分の駒を揃えたら勝ち!!!!!!" << endl;
+    cout << "座標の入力が失敗してしまったら back と入力してください" << endl;
 
     cout << "プレイヤー名を入力してください" << endl;
     cout << "しかし駒は[P1=●],[P2=◯]固定です" << endl;
@@ -95,6 +79,23 @@ void Standby(void)
         }
         else break;
     }
+    while(1)
+    {
+        cout << "盤面のサイズ(n*n)を入力してください。(6<n<21) :n=";
+        cin >> BoardSizeSub;
+        try
+        {
+            BoardSize=stoi(BoardSizeSub);
+        }
+        catch(const invalid_argument& e)
+        {
+            cout << "数値を入力してください" << endl;
+        }
+        if (BoardSize < 7 && BoardSize!=0) cout << "値が小さすぎます" << endl;
+        else if (BoardSize > 20) cout << "値が大きすぎます" << endl;
+        else if(BoardSize!=0) break;
+    }
+    cout << endl;
 }
 //盤面の出力--------------------------------------------------------
 void BoardOutput(void)
@@ -140,8 +141,17 @@ void Game(void)
     {
         while(1)
         {
-            cout << "置く場所を決めてください(x y) ";
-            cin >> x >> y; //xの後に　入れないと処理止まるからどうにかしろ
+            while(1)
+            {
+                cout << "置く場所を決めてください(x y) ";
+                cin >> x >> y;
+                if (y == "back")
+                {
+                    cout << "(x y)の形で再度入力してください" << endl;
+                }
+                else break;
+            }
+
             try
             {
                 X = stoi(x);
