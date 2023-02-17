@@ -5,14 +5,14 @@
 
 using namespace std;
 
-void Standby(string x);                                           //開始前準備
+void Standby(void);                                           //開始前準備
 void BoardOutput(void);                                        //盤面の出力
 void Game(void);                                                //入力処理
 void BoardScan(int x, int y);                                   //盤面の調査
 int BoardScanSub(int x, int y, int MoveX, int MoveY);          //置いた場所を中心に並ぶ個数の調査
 void Finish(void);                                              //ゲーム終了処理
 
-char YesOrNo;
+string YesOrNo;
 int PlayerNumber=1;
 int BoardSize=0;
 string PlayerNameOne,PlayerNameTwo;
@@ -21,9 +21,7 @@ vector<vector<int>> PlayBoard;
 //main
 int main()
 {
-    cout << "五目並べを開始しますか？ [y/n]" << endl;
-    cin >> YesOrNo;
-    Standby(YesOrNo); cout << endl;
+    Standby();
 
     int i;
     string BoardSizeSub;
@@ -63,17 +61,21 @@ int main()
     return 0;
 }
 //開始前準備-------------------------------------------------
-void Standby(string x)
+void Standby(void)
 {
-    cout << endl;
-    if (x=="n")
+    cout << "五目並べを開始しますか？ [y/n]" << endl;
+    while(1)
     {
-        cout << "そう....またね.... ;^;" << endl;
-        exit(0);
-    }
-    else if(x!="y")
-    {
-        cout << "[y]か[n]を入力してください" << endl;
+        cin >> YesOrNo;
+
+        if (YesOrNo == "n")
+        {
+            cout << "そう....またね.... ;^;" << endl;
+            exit(0);
+        } else if (YesOrNo != "y")
+        {
+            cout << "[y]か[n]を入力してください" << endl;
+        }else break;
     }
 
     cout << "~~五目並べRule~~" << endl << "縦横斜め五個自分の駒を揃えたら勝ち!!!!!!" << endl;
